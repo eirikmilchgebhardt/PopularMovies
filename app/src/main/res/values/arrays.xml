@@ -1,0 +1,11 @@
+<resources>
+    <!-- Arrays for sort preference -->
+    <string-array name="pref_sort_values">
+        <item>@string/pref_sort_popular</item>
+        <item>@string/pref_sort_rating</item>
+    </string-array>
+    <string-array name="pref_sort_options">
+        <item>most popular</item>
+        <item>highest-rated</item>
+    </string-array>
+</resources>

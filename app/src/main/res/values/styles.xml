@@ -1,0 +1,27 @@
+<resources>
+    <!--
+    I think I understand the basic concepts of styles, but trying to get them right has been a pain in the ***.
+    The setting of styles below has been performed after a lengthy trial and error with frequent visits
+    to the Sunshine App videos and general googling.
+
+    Atm. it is near what I wanted, but why the h*** my Settings Activity got an icon on top is beyond my understanding.
+    -->
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@android:style/Theme.Holo">
+        <item name="android:colorPrimary">@color/popularmovies_red</item>
+        <item name="android:colorPrimaryDark">@color/popularmovies_darkred</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+    </style>
+
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:displayOptions">showHome|homeAsUp|showTitle</item>
+    </style>
+
+    <!-- Main activity theme. -->
+    <style name="PosterTheme" parent="@style/Theme.AppCompat">
+        <item name="android:colorPrimary">@color/popularmovies_red</item>
+        <item name="android:colorPrimaryDark">@color/popularmovies_darkred</item>
+    </style>
+
+</resources>
