@@ -66,14 +66,21 @@
         android:layout_height="2dp"
         android:background="@android:color/darker_gray" />
 
-    <TextView
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="synopsis"
-        android:gravity="top"
-        android:layout_weight="1"
-        android:id="@+id/detail_synopsis"
-        android:layout_margin="2dp" />
+        android:id="@+id/scrollView">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="synopsis"
+            android:gravity="top"
+            android:layout_weight="1"
+            android:id="@+id/detail_synopsis"
+            android:layout_margin="2dp" />
+
+    </ScrollView>
 
 </LinearLayout>

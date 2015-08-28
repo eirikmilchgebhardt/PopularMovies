@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Class to hold movie information from The Movie DB. Made parceable to ease transfer between objects.
+ * Class to hold movie information from The Movie DB. Made parceable to ease transfer between obj
  *
  * Created by Scott on 24.08.2015.
  */

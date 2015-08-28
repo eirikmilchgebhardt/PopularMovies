@@ -46,7 +46,7 @@ public class PosterAdapter extends ArrayAdapter<MovieInfo> {
         Picasso.with(context)
                 .load(movieInfo.imageUrl)
                 .fit()
-                .centerCrop()
+                .centerInside()
                 .into(image);
 
         // Return nicely populated view

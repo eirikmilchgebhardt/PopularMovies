@@ -82,10 +82,10 @@ public class TMDB_AsyncTask extends AsyncTask<String, Void, List<MovieInfo>> {
 
                 MovieInfo movieInfo = new MovieInfo();
                 movieInfo.imageUrl = TMDB_IMAGE_URL + oneMovie.getString("poster_path");
-                movieInfo.originalTitle = oneMovie.getString("original_title");
-                movieInfo.plotSynopsis = oneMovie.getString("overview");
-                movieInfo.rating = oneMovie.getString("vote_average");
-                movieInfo.releaseDate = oneMovie.getString("release_date");
+                movieInfo.originalTitle = ensureGoodString(oneMovie.getString("original_title"));
+                movieInfo.plotSynopsis = ensureGoodString(oneMovie.getString("overview"));
+                movieInfo.rating = ensureGoodString(oneMovie.getString("vote_average"));
+                movieInfo.releaseDate = ensureGoodString(oneMovie.getString("release_date"));
 
                 movieInfos.add(movieInfo);
 
@@ -99,15 +99,18 @@ public class TMDB_AsyncTask extends AsyncTask<String, Void, List<MovieInfo>> {
         return movieInfos;
     }
 
+    private String ensureGoodString(String string){
+        if (string == null) return "";
+        else if (string == "null") return "";
+        else return string;
+    }
+
     @Override
     protected void onPostExecute(List<MovieInfo> movieInfos) {
         if(movieInfos != null)  {
             associatedAdapter.clear();
-            for (MovieInfo movieInfo : movieInfos) {
-                associatedAdapter.add(movieInfo);
-            }
-            //TODO: Check by code if addAll is supported
-            // associatedAdapter.addAll(movieInfos);
+            // Min version set to 15. addAll came in 11.
+            associatedAdapter.addAll(movieInfos);
         }
     }
 
