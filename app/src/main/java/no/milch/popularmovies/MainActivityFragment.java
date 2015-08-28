@@ -14,12 +14,10 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -36,6 +34,8 @@ public class MainActivityFragment extends Fragment {
     private PosterAdapter posterAdapter;
     // Save grid view for position update
     private GridView gridView;
+    // Save preference listener
+    SharedPreferences.OnSharedPreferenceChangeListener prefListener;
 
     @Override
     public void onAttach(Activity activity) {
@@ -79,8 +79,27 @@ public class MainActivityFragment extends Fragment {
             gridView.smoothScrollToPosition(savedInstanceState.getInt(SAVED_POS_TAG));
         }
 
+        // Listen to changes in preference and use onActvitiyCreated as an easy way to repopulate grid if preference has changed
+        prefListener =
+                new SharedPreferences.OnSharedPreferenceChangeListener() {
+                    public void onSharedPreferenceChanged(SharedPreferences prefs,
+                                                          String key) {
+                        onActivityCreated(null);
+                    }
+                };
+        PreferenceManager.getDefaultSharedPreferences(getActivity())
+                .registerOnSharedPreferenceChangeListener(prefListener);
+
         // Return view
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // Unregister preference listener
+        PreferenceManager.getDefaultSharedPreferences(getActivity())
+                .unregisterOnSharedPreferenceChangeListener(prefListener);
     }
 
     @Override
@@ -90,7 +109,7 @@ public class MainActivityFragment extends Fragment {
         // Save existing state of movies by iterating through the poster adapter
         // and pick out the current movies info and save the information as a bundle.
         ArrayList<MovieInfo> movieList = new ArrayList<MovieInfo>();
-        for (int i=0; i<posterAdapter.getCount(); i++) {
+        for (int i = 0; i < posterAdapter.getCount(); i++) {
             movieList.add(posterAdapter.getItem(i));
         }
         // Save existing movies info
@@ -118,6 +137,10 @@ public class MainActivityFragment extends Fragment {
                 // Initiate call to TMDB and pass on poster adapter to fill it
                 TMDB_AsyncTask tmdb_asyncTask = new TMDB_AsyncTask(this.posterAdapter);
                 tmdb_asyncTask.execute(sortOrder); // Execute with sort order rating
+            }
+            else {
+                // Notify user of lack of connectivity
+                Toast.makeText(getActivity(), getString(R.string.no_network_connection) , Toast.LENGTH_LONG).show();
             }
         }
     }

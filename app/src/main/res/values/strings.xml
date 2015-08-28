@@ -13,4 +13,7 @@
 
     <!-- Key to movies info when passing around -->
     <string name="movieinfo_key" translatable="false">movieinfo</string>
+
+    <!-- No network connection -->
+    <string name="no_network_connection">No network connection</string>
 </resources>
